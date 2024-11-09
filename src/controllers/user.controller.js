@@ -219,16 +219,16 @@ const changeCurrentPassword = asyncHandler(async(req,res) => {
 const getCurrentUser = asyncHandler( async(res,req) => {
     return  res
     .status(200)
-    .json(new ApiResponse(200,{req.user},"Currect user fetched successfully")) 
+    .json(new ApiResponse(200,req.user,"Currect user fetched successfully")) 
 })
 
 const updateAccountDetails = asyncHandler( async(res,req) => {
-    cosnt {fullname,email} = req.body
+    const {fullname,email} = req.body
 
     if(!fullname || !email){
         throw new ApiError(400,"Update Field required")
     }
-    cosnt user = await User.findByIdAndUpdate(
+    const user = await User.findByIdAndUpdate(
         req.user?._id,
         {
             $set:{
